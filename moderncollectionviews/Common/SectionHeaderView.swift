@@ -9,8 +9,8 @@
 import UIKit
 
 class SectionHeaderView: UICollectionReusableView {
-  static let reuseIdentifier = "SectionHeaderView"
-
+    
+    static let reuseIdentifier = "SectionHeaderView"
   let label = UILabel()
 
   override init(frame: CGRect) {

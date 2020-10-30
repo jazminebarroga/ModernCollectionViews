@@ -107,7 +107,7 @@ class HomeViewController: UIViewController {
                                                    heightDimension: .estimated(44))
             let titleSupplementary = NSCollectionLayoutBoundarySupplementaryItem(
                 layoutSize: titleSize,
-                elementKind: "title-element-kind",
+                elementKind: SectionHeaderView.reuseIdentifier,
                 alignment: .top)
             section.boundarySupplementaryItems = [titleSupplementary]
             return section
@@ -131,12 +131,12 @@ class HomeViewController: UIViewController {
                 guard let self = self, let section = Section(rawValue: indexPath.section) else { fatalError("Unknown section") }
                 switch section {
                 case .nowWatching:
-                    if case let .nowWatching(kdrama) = item {
+                  //  if case let .nowWatching(kdrama) = item {
                         return collectionView.dequeueConfiguredReusableCell (
                             using: self.makeNowWatchingKDramaCellRegistration(),
                             for: indexPath,
-                            item: kdrama)
-                    }
+                            item: item)
+                  //  }
                 case .recommendedShows:
                     if case let .recommendedShows(kdrama) = item {
                         return collectionView.dequeueConfiguredReusableCell (
@@ -150,12 +150,12 @@ class HomeViewController: UIViewController {
                             item: kdramaDetail)
                         }
                 case .trending:
-                    if case let .trending(kdrama) = item {
+                   // if case let .trending(kdrama) = item {
                         return collectionView.dequeueConfiguredReusableCell (
                             using: self.makeNowWatchingKDramaCellRegistration(),
                             for: indexPath,
-                            item: kdrama)
-                    }
+                            item: item)
+                   // }
                 }
                 return nil
                 
@@ -166,7 +166,7 @@ class HomeViewController: UIViewController {
     // Sample supplementary views
     private func configureSupplementaryViews() {
         
-        let supplementaryRegistration = UICollectionView.SupplementaryRegistration<SectionHeaderView>(elementKind: "Header") {
+        let supplementaryRegistration = UICollectionView.SupplementaryRegistration<SectionHeaderView>(elementKind: SectionHeaderView.reuseIdentifier) {
             (supplementaryView, string, indexPath) in
             if let snapshot = self.currentSnapshot {
                 // Populate the view with our section's description.
@@ -182,11 +182,17 @@ class HomeViewController: UIViewController {
     }
     
     // Custom Cell Registration using Nibs
-    private func makeNowWatchingKDramaCellRegistration() -> UICollectionView.CellRegistration<NowWatchingKDramaCell, KDrama> {
-        return UICollectionView.CellRegistration<NowWatchingKDramaCell, KDrama>(cellNib: UINib(nibName: "NowWatchingKDramaCell", bundle: nil))  { cell, indexPath, kdrama in
+    private func makeNowWatchingKDramaCellRegistration() -> UICollectionView.CellRegistration<NowWatchingKDramaCell, Item> {
+        return UICollectionView.CellRegistration<NowWatchingKDramaCell, Item>(cellNib: UINib(nibName: "NowWatchingKDramaCell", bundle: nil))  { cell, indexPath, item in
+            if case let .nowWatching(kdrama) = item {
             cell.bannerView.image = UIImage(named: kdrama.image!)!
             cell.titleLabel.text = kdrama.title
             cell.subtitleLabel.text = kdrama.subtitle
+            } else if case let .trending(kdrama) = item {
+                cell.bannerView.image = UIImage(named: kdrama.image!)!
+                cell.titleLabel.text = kdrama.title
+                cell.subtitleLabel.text = kdrama.subtitle
+            }
         }
     }
     
@@ -263,10 +269,7 @@ class HomeViewController: UIViewController {
         trendingSectionSnapshot.append(viewModel.trendingKdramas.map { .trending($0) })
         
         dataSource.apply(trendingSectionSnapshot, to: .trending, animatingDifferences: true)
-        
-
     }
-    
 }
     
 

@@ -25,7 +25,7 @@ class ViewModel {
     
     init() {
     
-        timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(shuffleTrendingKdramas), userInfo: nil, repeats: false)
+        timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(shuffleTrendingKdramas), userInfo: nil, repeats: true)
         
         generateTrendingKdramas()
         generateKdramas()

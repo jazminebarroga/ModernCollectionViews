@@ -22,6 +22,11 @@ class NowWatchingKDramaCell: UICollectionViewCell {
         setupView()
     }
         
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        print("☠️~~")
+    }
+    
     func setupView() {
         titleLabel.font = UIFont.preferredFont(forTextStyle: .caption1)
         subtitleLabel.font = UIFont.preferredFont(forTextStyle: .caption2)
