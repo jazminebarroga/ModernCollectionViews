@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="NowWatchingKDramaCell" reuseIdentifier="" id="gTV-IL-0wX" customClass="NowWatchingKDramaCell" customModule="moderncollectionviews" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="369" height="329"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="369" height="329"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m5p-PD-Z2n">
+                        <rect key="frame" x="0.0" y="248" width="33" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="start-up-banner" translatesAutoresizingMaskIntoConstraints="NO" id="wqX-Xb-14h">
+                        <rect key="frame" x="0.0" y="44" width="369" height="200"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="200" id="zBf-LY-fvc"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K64-G1-LoW" userLabel="Subtitle">
+                        <rect key="frame" x="0.0" y="269" width="58.5" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="wqX-Xb-14h" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" id="4OK-TJ-fQF"/>
+                <constraint firstItem="ZTg-uK-7eu" firstAttribute="top" secondItem="wqX-Xb-14h" secondAttribute="top" id="HBt-5B-6Ph"/>
+                <constraint firstItem="ZTg-uK-7eu" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="K64-G1-LoW" secondAttribute="bottom" constant="9" id="I4x-l3-2ko"/>
+                <constraint firstItem="m5p-PD-Z2n" firstAttribute="top" secondItem="wqX-Xb-14h" secondAttribute="bottom" constant="4" id="IAa-ii-Inz"/>
+                <constraint firstItem="K64-G1-LoW" firstAttribute="top" secondItem="m5p-PD-Z2n" secondAttribute="bottom" id="QHK-rs-EvX"/>
+                <constraint firstItem="wqX-Xb-14h" firstAttribute="trailing" secondItem="ZTg-uK-7eu" secondAttribute="trailing" id="Sxg-9L-NjC"/>
+                <constraint firstItem="m5p-PD-Z2n" firstAttribute="leading" secondItem="wqX-Xb-14h" secondAttribute="leading" id="bg9-St-BUy"/>
+                <constraint firstItem="K64-G1-LoW" firstAttribute="leading" secondItem="m5p-PD-Z2n" secondAttribute="leading" id="xMN-dx-4K0"/>
+            </constraints>
+            <size key="customSize" width="369" height="329"/>
+            <connections>
+                <outlet property="bannerView" destination="wqX-Xb-14h" id="wGf-3P-eIK"/>
+                <outlet property="subtitleLabel" destination="K64-G1-LoW" id="hrT-pu-zXJ"/>
+                <outlet property="titleLabel" destination="m5p-PD-Z2n" id="RsK-S7-c3w"/>
+            </connections>
+            <point key="canvasLocation" x="92.028985507246389" y="100.11160714285714"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="start-up-banner" width="500" height="469"/>
+    </resources>
+</document>

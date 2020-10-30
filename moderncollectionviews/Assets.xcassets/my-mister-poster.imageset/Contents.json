@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "my-mister-poster.jpg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
