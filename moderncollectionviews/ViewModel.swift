@@ -78,7 +78,7 @@ class ViewModel {
                            KDrama(title: "Romantic 2", subtitle: "", image: "romantic-2-poster", detail: nil),
                            KDrama(title: "When Camellia Blooms", subtitle: "", image: "when-camellia-blooms-poster", detail: nil),
                            KDrama(title: "World of Married", subtitle: "", image: "world-of-married-poster", detail: nil)
-        ].shuffled()
+        ]
         
         delegate?.didFinishGeneratingTrendingKdramas()
     }
@@ -86,6 +86,5 @@ class ViewModel {
     @objc private func shuffleTrendingKdramas() {
         trendingKdramas = trendingKdramas.shuffled()
         delegate?.didFinishGeneratingTrendingKdramas()
-
     }
 }

@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BA647033254A6176008615F1 /* NowWatchingKDramaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA647031254A6176008615F1 /* NowWatchingKDramaCell.swift */; };
-		BA647034254A6176008615F1 /* NowWatchingKDramaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA647032254A6176008615F1 /* NowWatchingKDramaCell.xib */; };
+		BA647033254A6176008615F1 /* KDramaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA647031254A6176008615F1 /* KDramaCell.swift */; };
+		BA647034254A6176008615F1 /* KDramaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA647032254A6176008615F1 /* KDramaCell.xib */; };
 		BA647037254A6532008615F1 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA647036254A6532008615F1 /* ViewModel.swift */; };
 		BA64703A254A6F01008615F1 /* KDrama.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA647039254A6F01008615F1 /* KDrama.swift */; };
 		BA64703F254AA2B2008615F1 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA64703E254AA2B2008615F1 /* SectionHeaderView.swift */; };
@@ -21,8 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		BA647031254A6176008615F1 /* NowWatchingKDramaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowWatchingKDramaCell.swift; sourceTree = "<group>"; };
-		BA647032254A6176008615F1 /* NowWatchingKDramaCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NowWatchingKDramaCell.xib; sourceTree = "<group>"; };
+		BA647031254A6176008615F1 /* KDramaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KDramaCell.swift; sourceTree = "<group>"; };
+		BA647032254A6176008615F1 /* KDramaCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KDramaCell.xib; sourceTree = "<group>"; };
 		BA647036254A6532008615F1 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		BA647039254A6F01008615F1 /* KDrama.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KDrama.swift; sourceTree = "<group>"; };
 		BA64703E254AA2B2008615F1 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
@@ -47,25 +47,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BA64702C254A6040008615F1 /* NowWatchingSection */ = {
-			isa = PBXGroup;
-			children = (
-				BA647031254A6176008615F1 /* NowWatchingKDramaCell.swift */,
-				BA647032254A6176008615F1 /* NowWatchingKDramaCell.xib */,
-				BA647036254A6532008615F1 /* ViewModel.swift */,
-				BA647039254A6F01008615F1 /* KDrama.swift */,
-			);
-			path = NowWatchingSection;
-			sourceTree = "<group>";
-		};
-		BA64703D254AA275008615F1 /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				BA64703E254AA2B2008615F1 /* SectionHeaderView.swift */,
-			);
-			path = Common;
-			sourceTree = "<group>";
-		};
 		BAF8B4B5254945100096A517 = {
 			isa = PBXGroup;
 			children = (
@@ -85,8 +66,11 @@
 		BAF8B4C0254945100096A517 /* moderncollectionviews */ = {
 			isa = PBXGroup;
 			children = (
-				BA64703D254AA275008615F1 /* Common */,
-				BA64702C254A6040008615F1 /* NowWatchingSection */,
+				BA647031254A6176008615F1 /* KDramaCell.swift */,
+				BA647032254A6176008615F1 /* KDramaCell.xib */,
+				BA64703E254AA2B2008615F1 /* SectionHeaderView.swift */,
+				BA647036254A6532008615F1 /* ViewModel.swift */,
+				BA647039254A6F01008615F1 /* KDrama.swift */,
 				BAF8B4C1254945100096A517 /* AppDelegate.swift */,
 				BAF8B4C3254945100096A517 /* SceneDelegate.swift */,
 				BAF8B4C5254945100096A517 /* HomeViewController.swift */,
@@ -159,7 +143,7 @@
 				BAF8B4CE254945110096A517 /* LaunchScreen.storyboard in Resources */,
 				BAF8B4CB254945110096A517 /* Assets.xcassets in Resources */,
 				BAF8B4C9254945100096A517 /* Main.storyboard in Resources */,
-				BA647034254A6176008615F1 /* NowWatchingKDramaCell.xib in Resources */,
+				BA647034254A6176008615F1 /* KDramaCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,7 +160,7 @@
 				BAF8B4C2254945100096A517 /* AppDelegate.swift in Sources */,
 				BA64703F254AA2B2008615F1 /* SectionHeaderView.swift in Sources */,
 				BAF8B4C4254945100096A517 /* SceneDelegate.swift in Sources */,
-				BA647033254A6176008615F1 /* NowWatchingKDramaCell.swift in Sources */,
+				BA647033254A6176008615F1 /* KDramaCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

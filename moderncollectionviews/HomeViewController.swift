@@ -22,13 +22,13 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         viewModel.delegate = self
-        
+     
         /// Start configuring collection view
         configureHierarchy()
         configureDatasource()
         configureSupplementaryViews()
         
-        // Load Now Watching Section
+        // Load items
         performUpdateAdvanced()
     }
     
@@ -121,41 +121,40 @@ class HomeViewController: UIViewController {
         return layout
     }
     
-    // Diffable Data Sources Demo
+    /// Diffable Data Sources Demo Binding 
     private func configureDatasource() {
-        ///
-    
+        /// Register cells
+        let kDramaCell = makeKDramaCellRegistration()
+        let recommendedShowsHeaderCell = makeDefaultListHeaderCellRegistration()
+        let recommendedShowsContentCell = makeDefaultListContentCellRegistration()
+        
+        /// Setup Datasource
         dataSource = UICollectionViewDiffableDataSource(
             collectionView: collectionView,
-            cellProvider: { [weak self] collectionView, indexPath, item in
-                guard let self = self, let section = Section(rawValue: indexPath.section) else { fatalError("Unknown section") }
+            cellProvider: { collectionView, indexPath, item in
+                guard let section = Section(rawValue: indexPath.section) else { fatalError("Unknown section") }
                 switch section {
-                case .nowWatching:
-                  //  if case let .nowWatching(kdrama) = item {
-                        return collectionView.dequeueConfiguredReusableCell (
-                            using: self.makeNowWatchingKDramaCellRegistration(),
-                            for: indexPath,
-                            item: item)
-                  //  }
+                
+                case .nowWatching, .trending:
+                     return collectionView.dequeueConfiguredReusableCell (
+                        using: kDramaCell,
+                        for: indexPath,
+                        item: item)
                 case .recommendedShows:
                     if case let .recommendedShows(kdrama) = item {
                         return collectionView.dequeueConfiguredReusableCell (
-                            using: self.makeDefaultListHeaderCellRegistration(),
+                            using: recommendedShowsHeaderCell,
                             for: indexPath,
                             item: kdrama)
                     } else if case let .kdramaDetail(kdramaDetail) = item {
-                        return collectionView.dequeueConfiguredReusableCell (
-                            using: self.makeDefaultListContentCellRegistration(),
+                        let cell = collectionView.dequeueConfiguredReusableCell (
+                            using: recommendedShowsContentCell,
                             for: indexPath,
                             item: kdramaDetail)
+                        return cell
+
                         }
-                case .trending:
-                   // if case let .trending(kdrama) = item {
-                        return collectionView.dequeueConfiguredReusableCell (
-                            using: self.makeNowWatchingKDramaCellRegistration(),
-                            for: indexPath,
-                            item: item)
-                   // }
+                    
                 }
                 return nil
                 
@@ -163,7 +162,7 @@ class HomeViewController: UIViewController {
         )
     }
     
-    // Sample supplementary views
+    // Sample supplementary views cell registration
     private func configureSupplementaryViews() {
         
         let supplementaryRegistration = UICollectionView.SupplementaryRegistration<SectionHeaderView>(elementKind: SectionHeaderView.reuseIdentifier) {
@@ -182,13 +181,15 @@ class HomeViewController: UIViewController {
     }
     
     // Custom Cell Registration using Nibs
-    private func makeNowWatchingKDramaCellRegistration() -> UICollectionView.CellRegistration<NowWatchingKDramaCell, Item> {
-        return UICollectionView.CellRegistration<NowWatchingKDramaCell, Item>(cellNib: UINib(nibName: "NowWatchingKDramaCell", bundle: nil))  { cell, indexPath, item in
+    private func makeKDramaCellRegistration() -> UICollectionView.CellRegistration<KDramaCell, Item> {
+        return UICollectionView.CellRegistration<KDramaCell, Item>(cellNib: UINib(nibName: "KDramaCell", bundle: nil))  { cell, indexPath, item in
+            var kdramaItem: KDrama?
             if case let .nowWatching(kdrama) = item {
-            cell.bannerView.image = UIImage(named: kdrama.image!)!
-            cell.titleLabel.text = kdrama.title
-            cell.subtitleLabel.text = kdrama.subtitle
+                kdramaItem = kdrama
             } else if case let .trending(kdrama) = item {
+                kdramaItem = kdrama
+            }
+            if let kdrama = kdramaItem {
                 cell.bannerView.image = UIImage(named: kdrama.image!)!
                 cell.titleLabel.text = kdrama.title
                 cell.subtitleLabel.text = kdrama.subtitle
@@ -196,7 +197,7 @@ class HomeViewController: UIViewController {
         }
     }
     
-    // Default List Header Cell Registration
+    // Default List Header Cell Registration / Sample Content Configurations
     private func makeDefaultListHeaderCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewListCell, KDrama> {
         return UICollectionView.CellRegistration<UICollectionViewListCell, KDrama> { (cell, indexPath, kdrama) in
             /// Acts as a viewModel
@@ -208,6 +209,7 @@ class HomeViewController: UIViewController {
         }
     }
     
+    // Default List Content Cell Registration
     private func makeDefaultListContentCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewListCell, KDramaDetail> {
         return UICollectionView.CellRegistration<UICollectionViewListCell, KDramaDetail> { (cell, indexPath, kdrama) in
             var content = cell.defaultContentConfiguration()
@@ -266,6 +268,7 @@ class HomeViewController: UIViewController {
     
     private func performUpdateTrendingSection() {
         var trendingSectionSnapshot = NSDiffableDataSourceSectionSnapshot<Item>()
+
         trendingSectionSnapshot.append(viewModel.trendingKdramas.map { .trending($0) })
         
         dataSource.apply(trendingSectionSnapshot, to: .trending, animatingDifferences: true)
@@ -293,35 +296,6 @@ extension HomeViewController {
         case recommendedShows(KDrama)
         case trending(KDrama)
         case kdramaDetail(KDramaDetail)
-    
-//        func hash(into hasher: inout Hasher) {
-//            switch self {
-//            case .nowWatching(let kdrama):
-//                return hasher.combine(kdrama.identifier)
-//            case .recommendedShows(let kdrama):
-//                return hasher.combine(kdrama.identifier)
-//            case .trending(let kdrama):
-//                return hasher.combine(kdrama.identifier)
-//            case .kdramaDetail(let detail):
-//                return hasher.combine(detail.identifier)
-//            }
-//          //  hasher.combine(identifier)
-//        }
-//
-//        static func ==(lhs: Item, rhs: Item) -> Bool {
-//            switch (lhs, rhs) {
-//            case (.nowWatching(let kdrama1), .nowWatching(let kdrama2)):
-//                return kdrama1.identifier == kdrama2.identifier
-//            case (.recommendedShows(let kdrama1), .recommendedShows(let kdrama2)):
-//                return kdrama1.identifier == kdrama2.identifier
-//            case (.trending(let kdrama1), .trending(let kdrama2)):
-//                return kdrama1.identifier == kdrama2.identifier
-//            case (.kdramaDetail(let detail1), .kdramaDetail(let detail2)):
-//                return detail1.identifier == detail2.identifier
-//            default:
-//                return false
-//            }
-//        }
     }
 }
 
@@ -329,6 +303,5 @@ extension HomeViewController {
 extension HomeViewController: ViewModelDelegate {
     func didFinishGeneratingTrendingKdramas() {
         performUpdateTrendingSection()
-    //    performUpdate()
     }
 }

@@ -28,4 +28,12 @@ struct KDramaDetail: Hashable {
     let title: String
     let value: String
     let identifier = UUID()
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(identifier)
+    }
+    
+    static func ==(lhs: KDramaDetail, rhs: KDramaDetail) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
 }

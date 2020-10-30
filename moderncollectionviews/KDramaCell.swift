@@ -1,5 +1,5 @@
 //
-//  NowWatchingKDramaCell.swift
+//  KDramaCell.swift
 //  moderncollectionviews
 //
 //  Created by Jazmine Paola Barroga on 10/29/20.
@@ -9,7 +9,7 @@
 import UIKit
 
 
-class NowWatchingKDramaCell: UICollectionViewCell {
+class KDramaCell: UICollectionViewCell {
     
     @IBOutlet weak var bannerView: UIImageView!
     
@@ -21,17 +21,10 @@ class NowWatchingKDramaCell: UICollectionViewCell {
         super.awakeFromNib()
         setupView()
     }
-        
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        print("☠️~~")
-    }
     
     func setupView() {
         titleLabel.font = UIFont.preferredFont(forTextStyle: .caption1)
         subtitleLabel.font = UIFont.preferredFont(forTextStyle: .caption2)
-
     }
-    
 
 }
