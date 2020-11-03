@@ -29,7 +29,7 @@ class HomeViewController: UIViewController {
         configureSupplementaryViews()
         
         // Load items
-        performUpdateAdvanced()
+        applyInitialSnapshot()
     }
     
     func configureHierarchy() {
@@ -79,7 +79,7 @@ class HomeViewController: UIViewController {
                 let configuration = UICollectionLayoutListConfiguration(appearance: .sidebarPlain)
                 section = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: layoutEnvironment)
                 
-            case .trending:
+            case .trendingWorldwide:
                 
                 /// Calculate item size
                 let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5),
@@ -135,7 +135,7 @@ class HomeViewController: UIViewController {
                 guard let section = Section(rawValue: indexPath.section) else { fatalError("Unknown section") }
                 switch section {
                 
-                case .nowWatching, .trending:
+                case .nowWatching, .trendingWorldwide:
                      return collectionView.dequeueConfiguredReusableCell (
                         using: kDramaCell,
                         for: indexPath,
@@ -186,7 +186,7 @@ class HomeViewController: UIViewController {
             var kdramaItem: KDrama?
             if case let .nowWatching(kdrama) = item {
                 kdramaItem = kdrama
-            } else if case let .trending(kdrama) = item {
+            } else if case let .trendingWorldwide(kdrama) = item {
                 kdramaItem = kdrama
             }
             if let kdrama = kdramaItem {
@@ -220,7 +220,7 @@ class HomeViewController: UIViewController {
         }
     }
     
-    /// Diffable Data Sources 3 Step Process
+    /// Diffable Data Sources 3 Step Process (Simple)
     private func performUpdate() {
         /// 1. Create the snapshot
         currentSnapshot = NSDiffableDataSourceSnapshot<Section, Item>()
@@ -229,15 +229,15 @@ class HomeViewController: UIViewController {
         currentSnapshot.appendSections(Section.allCases)
         currentSnapshot.appendItems(viewModel.nowWatching.map { .nowWatching($0) }, toSection: .nowWatching)
         currentSnapshot.appendItems(viewModel.recommendedKdramas.map { .recommendedShows($0) }, toSection: .recommendedShows)
-        currentSnapshot.appendItems(viewModel.trendingKdramas.map { .trending($0) }, toSection: .trending)
+        currentSnapshot.appendItems(viewModel.trendingKdramas.map { .trendingWorldwide($0) }, toSection: .trendingWorldwide)
 
         
         /// 3. Apply the snapshot
         dataSource.apply(currentSnapshot, animatingDifferences: true)
     }
     
-    /// Advances in Diffable Data Sources (WWDC20)
-    private func performUpdateAdvanced() {
+    /// Advances in Diffable Data Sources (WWDC20): Apply initial snapshot on viewDidLoad
+    private func applyInitialSnapshot() {
         /// Set the snapshot for our sections
         let sections = Section.allCases
         currentSnapshot = NSDiffableDataSourceSnapshot<Section, Item>()
@@ -266,12 +266,13 @@ class HomeViewController: UIViewController {
         dataSource.apply(recommendedSectionSnapshot, to: .recommendedShows, animatingDifferences: true)
     }
     
+    /// Advanced Diffable Data Sources: Update Trending Section only
     private func performUpdateTrendingSection() {
         var trendingSectionSnapshot = NSDiffableDataSourceSectionSnapshot<Item>()
 
-        trendingSectionSnapshot.append(viewModel.trendingKdramas.map { .trending($0) })
+        trendingSectionSnapshot.append(viewModel.trendingKdramas.map { .trendingWorldwide($0) })
         
-        dataSource.apply(trendingSectionSnapshot, to: .trending, animatingDifferences: true)
+        dataSource.apply(trendingSectionSnapshot, to: .trendingWorldwide, animatingDifferences: true)
     }
 }
     
@@ -280,13 +281,13 @@ extension HomeViewController {
     enum Section: Int, CaseIterable {
         case nowWatching
         case recommendedShows
-        case trending
+        case trendingWorldwide
         
         var title: String {
             switch self {
             case .nowWatching: return "Now Watching"
-            case .recommendedShows: return "Top 5"
-            case .trending: return "Trending Worldwide"
+            case .recommendedShows: return "Recommended Shows"
+            case .trendingWorldwide: return "Trending Worldwide"
             }
         }
     }
@@ -294,7 +295,7 @@ extension HomeViewController {
     enum Item: Hashable {
         case nowWatching(KDrama)
         case recommendedShows(KDrama)
-        case trending(KDrama)
+        case trendingWorldwide(KDrama)
         case kdramaDetail(KDramaDetail)
     }
 }
